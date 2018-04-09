@@ -4,8 +4,8 @@
 #
 #-------------------------------------------------
 
-QT       -= core gui
-
+QT       += core gui
+QT += widgets
 TARGET = zvdatabase
 TEMPLATE = lib
 CONFIG += dll
@@ -20,7 +20,8 @@ SOURCES += zvdatabase.cpp \
     pointparam.cpp \
     rectparam.cpp \
     zvbaseparam.cpp \
-    resultparam.cpp
+    resultparam.cpp \
+    selectdialog.cpp
 
 HEADERS += zvdatabase.h\
         zvdatabase_global.h \
@@ -33,7 +34,8 @@ HEADERS += zvdatabase.h\
     rectparam.h \
     zvbaseparam.h \
     paramheader.h \
-    resultparam.h
+    resultparam.h \
+    selectdialog.h
 
 unix {
     target.path = /usr/lib
@@ -87,3 +89,6 @@ LIBS += -LE:\opencv\opencv\build\x64\vc12\lib \
 -lopencv_legacy2412 \
 -lopencv_ml2412
 }
+
+FORMS += \
+    selectdialog.ui

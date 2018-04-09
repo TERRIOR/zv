@@ -31,4 +31,7 @@ Zvdatabase* destroyzvdata()
     return zvdata;
 }
 
-
+QDialog *showDialog(){
+    SelectDialog *seldia=new SelectDialog();
+    return seldia;
+}
