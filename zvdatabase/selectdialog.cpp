@@ -6,6 +6,21 @@ SelectDialog::SelectDialog(QWidget *parent) :
     ui(new Ui::SelectDialog)
 {
     ui->setupUi(this);
+    //设置表格的属性
+    settable();
+    //TODO 加载表格内容
+
+}
+
+SelectDialog::~SelectDialog()
+{
+    m_zvmap=NULL;
+    m_param=NULL;
+    delete ui;
+}
+
+void SelectDialog::settable()
+{
     tablew=ui->tableWidget;
     tablew->setColumnCount(5);
     QStringList header;
@@ -38,10 +53,50 @@ SelectDialog::SelectDialog(QWidget *parent) :
     "QScrollBar::handle{background:lightgray; border:2px solid transparent; border-radius:5px;}"
     "QScrollBar::handle:hover{background:gray;}"
     "QScrollBar::sub-line{background:transparent;}"
-    "QScrollBar::add-line{background:transparent;}");
+                                               "QScrollBar::add-line{background:transparent;}");
+}
+void SelectDialog::addrow(ParamStructure structure){
+    int row_count = tablew->rowCount(); //获取表单行数
+    tablew->insertRow(row_count); //插入新行
+    QTableWidgetItem *item = new QTableWidgetItem();
+    QTableWidgetItem *item1 = new QTableWidgetItem();
+    QTableWidgetItem *item2 = new QTableWidgetItem();
+    QTableWidgetItem *item3 = new QTableWidgetItem();
+    QTableWidgetItem *item4 = new QTableWidgetItem();
+    //设置对应的图标、文件名称、最后更新时间、对应的类型、文件大小
+    item->setText(QString::fromStdString(structure.getSparamName()));
+    item1->setText(QString::number(structure.getIstype()));
+    item2->setText(QString::number(structure.getINode())); //type为调用系统的类型，以后缀来区分
+    item3->setText(QString::number(structure.getIIndex()));
+    item3->setText(QString::number(structure.getIId()));
+    tablew->setItem(row_count, 0, item);
+    tablew->setItem(row_count, 1, item1);
+    tablew->setItem(row_count, 2, item2);
+    tablew->setItem(row_count, 3, item3);
+    tablew->setItem(row_count, 4, item4);
+    //设置样式为灰色
+    QColor color("gray");
+    item1->setTextColor(color);
+    item2->setTextColor(color);
+    item3->setTextColor(color);
+    item4->setTextColor(color);
+}
+void SelectDialog::loadtable()
+{
+    map<ParamStructure,ZvBaseParam*>::iterator it;
+    for(it=m_zvmap->begin();it!=m_zvmap->end();++it)
+    {
+        ZvBaseParam *zb=it->second;
+        addrow(zb->getDbParam());
+    }
 }
 
-SelectDialog::~SelectDialog()
+void SelectDialog::setmap(map<ParamStructure, ZvBaseParam *> *map)
 {
-    delete ui;
+    m_zvmap=map;
+}
+
+void SelectDialog::setreparam(ZvBaseParam *param)
+{
+    m_param=param;
 }
