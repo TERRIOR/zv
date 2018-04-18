@@ -5,11 +5,12 @@
 #include <QtWidgets>
 #include <map>
 #include "paramheader.h"
+#include "zvdatabase_global.h"
 namespace Ui {
 class SelectDialog;
 }
 
-class SelectDialog : public QDialog
+class __declspec(dllexport) SelectDialog : public QDialog
 {
     Q_OBJECT
 
@@ -23,6 +24,9 @@ public:
     //客户端被返回对象指针后，把待获取的数据变量指针传过来
     void setreparam(ZvBaseParam* param);
     void addrow(ParamStructure structure);
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::SelectDialog *ui;
     QTableWidget *tablew;

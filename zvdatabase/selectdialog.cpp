@@ -100,3 +100,8 @@ void SelectDialog::setreparam(ZvBaseParam *param)
 {
     m_param=param;
 }
+
+void SelectDialog::on_pushButton_clicked()
+{
+
+}
