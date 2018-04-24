@@ -1,4 +1,11 @@
-﻿#ifndef CAMWORKER_H
+﻿/**
+*@projectName   cvcamera
+*@documentname  camworker.h
+*@author        zzJun
+*@date          20180422
+*@brief         a worker used in a thread to get the camera picture
+**/
+#ifndef CAMWORKER_H
 #define CAMWORKER_H
 
 #include <QObject>
@@ -9,7 +16,7 @@
 #include <qdebug.h>
 #pragma comment(lib, "Gdi32.lib")
 #pragma comment(lib,"user32.lib")
-class Q_DECL_EXPORT CamWorker : public QObject
+class  CamWorker : public QObject
 {
     Q_OBJECT
 public:

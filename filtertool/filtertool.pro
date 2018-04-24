@@ -1,55 +1,52 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2018-04-08T10:45:40
+# Project created by QtCreator 2018-04-21T22:02:12
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT += widgets
-TARGET = zvdatabase
+TARGET = filtertool
 TEMPLATE = lib
+QT += widgets
+QT += core gui
 CONFIG += dll
-DEFINES += ZVDATABASE_LIBRARY
+DEFINES += FILTERTOOL_LIBRARY
 
-SOURCES += zvdatabase.cpp \
-    zvdatabase_g.cpp \
-    circleparam.cpp \
+SOURCES += filtertool.cpp \
+    cvgloble.cpp \
+    fftfilter.cpp \
     imageparam.cpp \
-    lineparam.cpp \
     paramstructure.cpp \
-    pointparam.cpp \
-    rectparam.cpp \
+    qgloble.cpp \
     zvbaseparam.cpp \
-    resultparam.cpp \
-    selectdialog.cpp \
+    filterdialog.cpp \
+    filtertool_g.cpp \
     toolsbase.cpp \
     toolsstructure.cpp
 
-HEADERS += zvdatabase.h\
-        zvdatabase_global.h \
-    zvdatabase_g.h \
-    circleparam.h \
+HEADERS += filtertool.h\
+        filtertool_global.h \
+    cvgloble.h \
+    fftfilter.h \
     imageparam.h \
-    lineparam.h \
     paramstructure.h \
-    pointparam.h \
-    rectparam.h \
+    qgloble.h \
     zvbaseparam.h \
-    paramheader.h \
-    resultparam.h \
-    selectdialog.h \
+    filterdialog.h \
+    filtertool_g.h \
     toolsbase.h \
-    toolsstructure.h
+    toolsstructure.h \
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
 
-LIBS += -Lopencv_ffmpeg2412_64.dll
+INCLUDEPATH += E:\QTPROJECT\zv\zvdatabase
 INCLUDEPATH += E:\opencv\opencv\build\include\opencv2
 INCLUDEPATH += E:\opencv\opencv\build\include\opencv
 INCLUDEPATH += E:\opencv\opencv\build\include
+
+LIBS += -Lopencv_ffmpeg2412_64.dll
 win32:CONFIG(debug, debug|release): {
 LIBS += -LE:\opencv\opencv\build\x64\vc12\lib \
 -lopencv_objdetect2412d\
@@ -71,6 +68,10 @@ LIBS += -LE:\opencv\opencv\build\x64\vc12\lib \
 -lopencv_imgproc2412d\
 -lopencv_legacy2412d\
 -lopencv_ml2412
+
+LIBS += -LE:\QTPROJECT\build-zvdatabase-Desktop_Qt_5_7_0_MSVC2013_64bit-Debug\debug
+LIBS += -lzvdatabase
+
 } else:win32:CONFIG(release, debug|release): {
 LIBS += -LE:\opencv\opencv\build\x64\vc12\lib \
 -lopencv_objdetect2412 \
@@ -92,7 +93,10 @@ LIBS += -LE:\opencv\opencv\build\x64\vc12\lib \
 -lopencv_imgproc2412 \
 -lopencv_legacy2412 \
 -lopencv_ml2412
-}
 
+LIBS += -LE:\QTPROJECT\build-zvdatabase-Desktop_Qt_5_7_0_MSVC2013_64bit-Release\release
+LIBS += -lzvdatabase
+
+}
 FORMS += \
-    selectdialog.ui
+    filterdialog.ui

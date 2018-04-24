@@ -1,4 +1,11 @@
-﻿#ifndef CONTROLTHREAD_H
+﻿/**
+*@projectName   cvcamera
+*@documentname  controlthread.h
+*@author        zzJun
+*@date          20180422
+*@brief         control the thread
+**/
+#ifndef CONTROLTHREAD_H
 #define CONTROLTHREAD_H
 
 #include <QObject>

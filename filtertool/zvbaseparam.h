@@ -19,6 +19,8 @@ public:
     virtual ~ZvBaseParam();
     void setDbParam(string paramname="-1", int index=-1, int node=-1, int stype=-1,int id=-1);
     ParamStructure getDbParam() const;
+
+
     void setDbParam(const ParamStructure &dbParam);
 
 private:

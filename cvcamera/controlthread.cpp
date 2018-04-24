@@ -33,7 +33,7 @@ void controlthread::refleshmat()//做监控
 {
     int size;
     size= cvcam->queuesize();
-    cout<<"reflesh: "<<size<<endl;
+    //cout<<"reflesh: "<<size<<endl;
 }
 void controlthread::stopthread()
 {

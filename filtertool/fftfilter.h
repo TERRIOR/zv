@@ -1,4 +1,11 @@
-﻿#ifndef FFTFILTER_H
+﻿/**
+*@projectName   filtertool
+*@documentname  fftfilter.h
+*@author        zzJun
+*@date          20180422
+*@brief         a class used to bandpass picture
+**/
+#ifndef FFTFILTER_H
 #define FFTFILTER_H
 #include "opencv2/calib3d/calib3d.hpp"
 #include "opencv2/contrib/contrib.hpp"

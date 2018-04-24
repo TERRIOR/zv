@@ -32,12 +32,10 @@ public:
     void setreparam(ZvBaseParam* param);
 
     void addrow(ParamStructure structure);
-signals:
-    void sendparam(ParamStructure structure);
+
+
 private slots:
     void on_buttonBox_accepted();
-    void mySort(int);
-    void on_tableWidget_cellDoubleClicked(int row, int column);
 
 private:
     Ui::SelectDialog *ui;

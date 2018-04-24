@@ -27,7 +27,7 @@ int cvcamera::refreshCameraImg()
         m_mCameraImg=camimgque.front();
         camimgque.pop();
     }else{
-        cout<<"queue is empty"<<endl;
+        //cout<<"queue is empty"<<endl;
     }
 
     return size;

@@ -165,3 +165,23 @@ void imshowMany(const std::string& _winName, const vector<Mat>& _imgs)
     namedWindow(_winName);
     imshow(_winName, dispImg);
 }
+
+
+QImage Mat2QImage(Mat image1)
+{
+    QImage img;
+    //image1=image;
+    if (image1.channels()==3) {
+        cvtColor(image1, image1, CV_BGR2RGB);
+        img = QImage((const unsigned char *)(image1.data), image1.cols, image1.rows,
+                image1.cols*image1.channels(), QImage::Format_RGB888);
+    } else if (image1.channels()==1) {
+        img = QImage((const unsigned char *)(image1.data), image1.cols, image1.rows,
+                image1.cols*image1.channels(), QImage::Format_Indexed8);//灰度图
+    } else {
+        img = QImage((const unsigned char *)(image1.data), image1.cols, image1.rows,
+                image1.cols*image1.channels(), QImage::Format_RGB888);
+    }
+
+    return img;
+}

@@ -1,4 +1,11 @@
-﻿#ifndef QGLOBLE_H
+﻿/**
+*@projectName
+*@documentname  qgloble.h
+*@author        zzJun
+*@date          20180422
+*@brief         include the qt function we often use
+**/
+#ifndef QGLOBLE_H
 #define QGLOBLE_H
 #include <QDir>
 #include "iostream"

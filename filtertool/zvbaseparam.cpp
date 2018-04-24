@@ -31,4 +31,3 @@ void ZvBaseParam::setDbParam(const ParamStructure &dbParam)
     m_dbParam = dbParam;
 }
 
-

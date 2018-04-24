@@ -26,6 +26,8 @@ public:
     //在tools工具中调用，用于储存数据到数据库类
     bool saveparam(ZvBaseParam* param);
     //在主工程中调用，用于储存工具到数据库类
+    void savetool(toolsbase* toolb);
+    void deltool();
 
     //更新变量的值
     void refreshparam(ZvBaseParam* param);
@@ -40,25 +42,15 @@ public:
     bool isempty();
     //在tools工具work时，需要从数据库类取出数据，实现运行
     void getparam(ZvBaseParam* param);
-    ZvBaseParam *getparamster(ParamStructure Structure);
     map<ParamStructure, ZvBaseParam *> *getZvmap() const;
     vector<toolsbase *> getToolvect() const;
     int getToolcount() const;
     void setToolcount(int value);
-    void addtoolcount();
-    void minustoolcount();
-    void savetool(toolsbase *toolb);
-    void deltool();
-    void releasetool();
-    int getindex(int node);
-    void addindex(int node);
-    void minusindex(int node);
-    void setindex(int node,int index);
 private:
     map<ParamStructure,ZvBaseParam*> *zvmap;
     vector<toolsbase*> toolvect;
     int toolcount=1;
-    int indexcount[10];//最多是个流程，每个索引下的数指该node下拥有的index数
+    int index[10];//最多是个流程，每个索引下的数指该node下拥有的index数
 
 };
 extern ZVDATABASESHARED_EXPORT Zvdatabase *zvdata;

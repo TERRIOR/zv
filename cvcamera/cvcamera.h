@@ -1,4 +1,11 @@
-﻿#ifndef CVCAMERA_H
+﻿/**
+*@projectName   cvcamera
+*@documentname  cvcamera.h
+*@author        zzJun
+*@date          20180422
+*@brief         the class used to control the camera,as well as save the paramster
+**/
+#ifndef CVCAMERA_H
 #define CVCAMERA_H
 #include "opencv2/calib3d/calib3d.hpp"
 #include "opencv2/contrib/contrib.hpp"

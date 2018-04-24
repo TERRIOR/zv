@@ -1,9 +1,11 @@
 ﻿#include "zvdatabase.h"
 //#define ZVDATABASE_LIBRARY
-
+//dll接口 以c形式创建对象，返回对象（唯一）
+Zvdatabase *zvdata=NULL;
 Zvdatabase::Zvdatabase()
 {
     cout<<"data base"<<endl;
+    memset(indexcount, 0, 10);
     zvmap=new map<ParamStructure,ZvBaseParam*>();
 }
 
@@ -17,6 +19,47 @@ bool Zvdatabase::saveparam(ZvBaseParam *param)
     std::pair<std::map<ParamStructure,ZvBaseParam*>::iterator, bool> ret;
     ret=zvmap->insert(pair<ParamStructure,ZvBaseParam*>(param->getDbParam(),param));
     return ret.second;
+}
+
+void Zvdatabase::savetool(toolsbase *toolb)
+{
+//    toolcount++;
+    toolvect.push_back(toolb);
+}
+
+void  Zvdatabase::deltool()
+{
+//    toolcount--;
+    toolvect.pop_back();
+}
+
+void Zvdatabase::releasetool()
+{
+    vector<toolsbase*>::iterator it=toolvect.begin();
+    while (it!=toolvect.end()) {
+        (*it)->release();
+        it++;
+    }
+}
+
+int Zvdatabase::getindex(int node)
+{
+    return indexcount[node];
+}
+
+void Zvdatabase::addindex(int node)
+{
+    indexcount[node]++;
+}
+
+void Zvdatabase::minusindex(int node)
+{
+    indexcount[node]--;
+}
+
+void Zvdatabase::setindex(int node, int index)
+{
+    indexcount[node]=index;
 }
 
 void Zvdatabase::refreshparam(ZvBaseParam *param)
@@ -38,6 +81,11 @@ void Zvdatabase::clearall()
     zvmap->clear();
 }
 
+void Zvdatabase::clearallvec()
+{
+    toolvect.clear();
+}
+
 bool Zvdatabase::isempty()
 {
     return zvmap->empty();
@@ -48,8 +96,48 @@ void Zvdatabase::getparam(ZvBaseParam *param)
     param=zvmap->at(param->getDbParam());
 }
 
+ZvBaseParam *Zvdatabase::getparamster(ParamStructure Structure)
+{
+    return zvmap->at(Structure);
+}
+
+map<ParamStructure, ZvBaseParam *> *Zvdatabase::getZvmap() const
+{
+    return zvmap;
+}
+
+vector<toolsbase *> Zvdatabase::getToolvect() const
+{
+    return toolvect;
+}
+
+int Zvdatabase::getToolcount() const
+{
+    return toolcount;
+}
+
+void Zvdatabase::setToolcount(int value)
+{
+    toolcount = value;
+}
+
+void Zvdatabase::addtoolcount()
+{
+    toolcount++;
+}
+
+void Zvdatabase::minustoolcount()
+{
+    toolcount--;
+}
+
+
+
 Zvdatabase::~Zvdatabase()
 {
+    releasetool();
+    clearall();
+    clearallvec();
     delete zvmap;
     zvmap=NULL;
     cout<<"~data base"<<endl;

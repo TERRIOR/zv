@@ -7,14 +7,15 @@ SelectDialog::SelectDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     //设置表格的属性
-    settable();
-    //TODO 加载表格内容
 
+    //TODO 加载表格内容
+    settable();
+    loadtable();
 }
 
 SelectDialog::~SelectDialog()
 {
-    m_zvmap=NULL;
+    //m_zvmap=NULL;
     m_param=NULL;
     delete ui;
 }
@@ -22,9 +23,11 @@ SelectDialog::~SelectDialog()
 void SelectDialog::settable()
 {
     tablew=ui->tableWidget;
+    connect(tablew->horizontalHeader(),SIGNAL(sectionClicked(int )),this, SLOT(mySort(int)));
+    //connect(,SIGNAL(sectionClicked(int )),this, SLOT(mySort(int)));
     tablew->setColumnCount(5);
     QStringList header;
-    header<<tr("Name")<<tr("Type")<<tr("Node")<<tr("Index")<<tr("Id");
+    header<<tr("Name")<<tr("Index")<<tr("Node")<<tr("Type")<<tr("Id");
     tablew->setHorizontalHeaderLabels(header);
     QFont font = tablew->horizontalHeader()->font();
     font.setBold(true);
@@ -65,43 +68,64 @@ void SelectDialog::addrow(ParamStructure structure){
     QTableWidgetItem *item4 = new QTableWidgetItem();
     //设置对应的图标、文件名称、最后更新时间、对应的类型、文件大小
     item->setText(QString::fromStdString(structure.getSparamName()));
-    item1->setText(QString::number(structure.getIstype()));
+    item3->setText(QString::number(structure.getIstype()));
     item2->setText(QString::number(structure.getINode())); //type为调用系统的类型，以后缀来区分
-    item3->setText(QString::number(structure.getIIndex()));
-    item3->setText(QString::number(structure.getIId()));
+    item1->setText(QString::number(structure.getIIndex()));
+    item4->setText(QString::number(structure.getIId()));
+    QColor color("gray");
+    item1->setTextColor(color);
+    item2->setTextColor(color);
+    item3->setTextColor(color);
+    item4->setTextColor(color);
     tablew->setItem(row_count, 0, item);
     tablew->setItem(row_count, 1, item1);
     tablew->setItem(row_count, 2, item2);
     tablew->setItem(row_count, 3, item3);
     tablew->setItem(row_count, 4, item4);
     //设置样式为灰色
-    QColor color("gray");
-    item1->setTextColor(color);
-    item2->setTextColor(color);
-    item3->setTextColor(color);
-    item4->setTextColor(color);
+
 }
 void SelectDialog::loadtable()
 {
     map<ParamStructure,ZvBaseParam*>::iterator it;
-    for(it=m_zvmap->begin();it!=m_zvmap->end();++it)
+    for(it=zvdata->getZvmap()->begin();it!=zvdata->getZvmap()->end();++it)
     {
         ZvBaseParam *zb=it->second;
         addrow(zb->getDbParam());
     }
 }
 
-void SelectDialog::setmap(map<ParamStructure, ZvBaseParam *> *map)
-{
-    m_zvmap=map;
-}
 
 void SelectDialog::setreparam(ZvBaseParam *param)
 {
     m_param=param;
 }
 
-void SelectDialog::on_pushButton_clicked()
+
+
+void SelectDialog::on_buttonBox_accepted()
 {
 
+}
+
+void SelectDialog::mySort(int i_col_index)
+{
+    tablew->sortByColumn(i_col_index);
+}
+
+void SelectDialog::on_tableWidget_cellDoubleClicked(int row, int column)
+{
+    cout<<row<<" "<<column<<endl;
+    int id;
+    int node;
+    int type;
+    int index;
+    string name;
+    id=tablew->item(row,4)->text().toInt();
+    node=tablew->item(row,2)->text().toInt();
+    index=tablew->item(row,1)->text().toInt();
+    type=tablew->item(row,3)->text().toInt();
+    name=tablew->item(row,0)->text().toStdString();
+    emit sendparam(ParamStructure(name,index,node,type,id));
+    this->close();
 }

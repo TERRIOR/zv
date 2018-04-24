@@ -1,4 +1,11 @@
-﻿#ifndef CAMSETDIALOG_H
+﻿/**
+*@projectName   cvcamera
+*@documentname  camsetdialog.h
+*@author        zzJun
+*@date          20180422
+*@brief         the dialog class used to set the camera paramster for user
+**/
+#ifndef CAMSETDIALOG_H
 #define CAMSETDIALOG_H
 
 #include <QDialog>
@@ -14,7 +21,8 @@ namespace Ui {
 class CamsetDialog;
 }
 
-class Q_DECL_EXPORT CamsetDialog : public QDialog
+
+class  CamsetDialog : public QDialog
 {
     Q_OBJECT
 

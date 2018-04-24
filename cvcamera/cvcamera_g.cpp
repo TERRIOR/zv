@@ -33,9 +33,9 @@ cvcamera *getcvcam()
         return NULL;
     }
 }
-QDialog *showcamDialog(){
+void showcamDialog(){
     CamsetDialog *setdia=new CamsetDialog();
-    return setdia;
+    setdia->show();
 }
 
 
