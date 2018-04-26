@@ -60,6 +60,7 @@ bool cvcamera::opencamera()
         capture->set(CV_CAP_PROP_FRAME_HEIGHT, m_iHight);//高度
     if(m_iFps!=-1)
         capture->set(CV_CAP_PROP_FPS, m_iFps);//帧数
+        cout<<m_iFps<<endl;
     if(m_iBrightness!=-1)
         capture->set(CV_CAP_PROP_BRIGHTNESS, m_iBrightness);//亮度
     if(m_iContrast!=-1)
@@ -137,5 +138,10 @@ int cvcamera::getMax() const
 void cvcamera::setMax(int value)
 {
     max = value;
+}
+
+VideoCapture *cvcamera::getCapture() const
+{
+    return capture;
 }
 

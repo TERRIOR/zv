@@ -49,12 +49,17 @@ int Zvdatabase::getindex(int node)
 
 void Zvdatabase::addindex(int node)
 {
-    indexcount[node]++;
+    int temp=indexcount[node];
+    temp++;
+    indexcount[node]=temp;
 }
 
 void Zvdatabase::minusindex(int node)
 {
-    indexcount[node]--;
+    cout<<node<<endl;
+    int temp=indexcount[node];
+    temp--;
+    indexcount[node]=temp;
 }
 
 void Zvdatabase::setindex(int node, int index)
@@ -106,9 +111,14 @@ map<ParamStructure, ZvBaseParam *> *Zvdatabase::getZvmap() const
     return zvmap;
 }
 
-vector<toolsbase *> Zvdatabase::getToolvect() const
+int Zvdatabase::getToolvectsize() const
 {
-    return toolvect;
+    return toolvect.size();
+}
+
+toolsbase *Zvdatabase::gettool(int i)
+{
+    return toolvect[i];
 }
 
 int Zvdatabase::getToolcount() const

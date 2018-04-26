@@ -6,10 +6,11 @@ FilterDialog::FilterDialog(QWidget *parent) :
     ui(new Ui::FilterDialog)
 {
     ui->setupUi(this);
+    setWindowFlags(windowFlags()|Qt::FramelessWindowHint|Qt::WindowTitleHint);
     btngroup = new QButtonGroup(this);
     btngroup->addButton(ui->radioButtonhigh,0);
-    btngroup->addButton(ui->radioButtonlow,0);
-
+    btngroup->addButton(ui->radioButtonlow,1);
+    ui->pushButtonshow->setEnabled(false);
 }
 
 
@@ -18,9 +19,9 @@ FilterDialog::~FilterDialog()
     delete ui;
 }
 
-
 void FilterDialog::receivemat(Mat m)
 {
+    cout<<m.channels()<<" "<<m.type()<<" "<<endl;
     QImage qimg=Mat2QImage(m);
     ui->lblOriginal->setPixmap(QPixmap::fromImage(qimg));
 }

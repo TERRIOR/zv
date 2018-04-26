@@ -12,17 +12,10 @@ Filtertool::Filtertool(QObject *parent)
 
 }
 
-Filtertool::Filtertool(int index, int node, int runid, int idofstype)
-{
-
-
-}
-
 Filtertool::Filtertool(int node)
 {   
-    //setToolparam(index,node,runid,idofstype);
-    //imgparamin.setDbParam("inimg",index,node,imagetype,runid);
     imgparamout.setDbParam("outimg",zvdata->getindex(node),node,imagetype,zvdata->getToolcount());
+    setToolparam(zvdata->getindex(node),node,imagetype,zvdata->getToolcount());
     zvdata->addindex(node);
     zvdata->addtoolcount();
     //imgparamin.setPic(&m_inpic);
@@ -55,7 +48,9 @@ void Filtertool::lowblur()
 
 void Filtertool::bandpassfilter()
 {
-    bandpass(m_inpic,m_outpic,m_ihigh,m_ilow,m_istage);
+    Mat gray;
+    cvtColor(m_inpic,gray,CV_BGR2GRAY);
+    bandpass(gray,m_outpic,m_ihigh,m_ilow,m_istage);
 }
 
 Filtertool::~Filtertool()
@@ -67,7 +62,7 @@ Filtertool::~Filtertool()
 
 void Filtertool::work()
 {
-
+    //TODO:次数添加图像处理的运算
     switch(m_ipasstype){
         case lowpasstype:
             lowblur();
@@ -83,6 +78,7 @@ void Filtertool::work()
 
 void Filtertool::showui()
 {
+    //TODO:此处添加界面的创建，显示，绑定
     showed=true;
     FilterDialog *filterdia=new FilterDialog();
     connect(filterdia,SIGNAL(sendrefuse()),this,SLOT(refusecreate()));
@@ -96,20 +92,21 @@ void Filtertool::showui()
 
 bool Filtertool::save(QString str)
 {
+    //TODO:此处保存参数
     return true;
 }
 
 bool Filtertool::load(QString str)
 {
+    //TODO:此处读取数据
     return false;
 }
 
 bool Filtertool::copyto(toolsbase &toolb)
 {
+    //TODO:添加复制代码
     return true;
 }
-
-
 
 void Filtertool::connectdb()
 {
@@ -138,8 +135,10 @@ void Filtertool::setPasstype(int value)
 
 void Filtertool::refusecreate()
 {
-    zvdata->minusindex(toolparam.iNode());
-    zvdata->minustoolcount();
+    if(zvdata!=NULL){
+        zvdata->minusindex(toolparam.iNode());
+        zvdata->minustoolcount();
+    }
     release();
 }
 
@@ -155,16 +154,13 @@ void Filtertool::confirmcreat()
 void Filtertool::receivework(int type,int high,int low,int stage,int size)
 {
     settool(type,high,low,stage,size);
-    cout<<"work save"<<endl;
     work();
     emit sendmat(m_outpic);
 }
 
 void Filtertool::receivestruct(ParamStructure structure)
 {
-    cout<<"receivestruct"<<endl;
-    //imgparamin->setDbParam(structure);
-    //zvdata->getparam(imgparamin);
+
     imgparamin=dynamic_cast<ImageParam*>(zvdata->getparamster(structure));
     m_inpic=*imgparamin->pic();
 }

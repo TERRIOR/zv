@@ -45,6 +45,8 @@ public:
     int getMax() const;
     void setMax(int value);
 
+    VideoCapture *getCapture() const;
+
 private:
     int m_iCameraId=0;//相机的识别码 如“0”（暂定）
     VideoCapture *capture;//VideoCapture

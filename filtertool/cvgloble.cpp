@@ -170,7 +170,15 @@ void imshowMany(const std::string& _winName, const vector<Mat>& _imgs)
 QImage Mat2QImage(Mat image1)
 {
     QImage img;
+    //Mat image1;
+    //image.copyTo(image1);
     //image1=image;
+    if(image1.type()==5){
+        //image1=image1*255;
+        normalize(image1, image1, 0, 255, cv::NORM_MINMAX);
+        image1.convertTo(image1,CV_8U);
+
+    }
     if (image1.channels()==3) {
         cvtColor(image1, image1, CV_BGR2RGB);
         img = QImage((const unsigned char *)(image1.data), image1.cols, image1.rows,

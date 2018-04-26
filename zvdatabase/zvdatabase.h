@@ -42,7 +42,8 @@ public:
     void getparam(ZvBaseParam* param);
     ZvBaseParam *getparamster(ParamStructure Structure);
     map<ParamStructure, ZvBaseParam *> *getZvmap() const;
-    vector<toolsbase *> getToolvect() const;
+    int getToolvectsize() const;
+    toolsbase* gettool(int i);
     int getToolcount() const;
     void setToolcount(int value);
     void addtoolcount();

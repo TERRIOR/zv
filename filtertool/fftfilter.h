@@ -31,6 +31,7 @@ Mat ForierTransform(int M, int N,const Mat &img);
 Mat CreateGaussianHighPassFilter(Size size, double cutoffInPixels);
 //带通滤波
 void bandpass(const Mat &img,Mat &Outputmat, int D, int d, int n);
+//显示fft的结果图
 void showfft(String str,const Mat &img);
 
 #endif // FFTFILTER_H
