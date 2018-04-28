@@ -10,6 +10,7 @@ FilterDialog::FilterDialog(QWidget *parent) :
     btngroup = new QButtonGroup(this);
     btngroup->addButton(ui->radioButtonhigh,0);
     btngroup->addButton(ui->radioButtonlow,1);
+    ui->buttonBox->setEnabled(false);
     ui->pushButtonshow->setEnabled(false);
 }
 
@@ -28,6 +29,8 @@ void FilterDialog::receivemat(Mat m)
 
 void FilterDialog::on_pushButtonselect_clicked()
 {
+    ui->buttonBox->setEnabled(true);
+    ui->pushButtonshow->setEnabled(true);
     QDialog* dia=showdbDialog();
     connect(dia,SIGNAL(sendparam(ParamStructure)),this,SLOT(receiveparam(ParamStructure)));
     dia->show();
@@ -40,6 +43,7 @@ void FilterDialog::on_pushButtonshow_clicked()
     int low;
     int stage;
     int size;
+
     if(ui->radioButtonlow->isChecked()){
         type=lowpasstype;
     }else if(ui->radioButtonhigh->isChecked()){

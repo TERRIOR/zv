@@ -15,6 +15,7 @@
 #include "fftfilter.h"
 #include "filterdialog.h"
 #include <QObject>
+#include "qgloble.h"
 #define lowpasstype 0
 #define bandpasstype 1
 
@@ -42,12 +43,13 @@ public:
     ~Filtertool();
     void work();
     void showui();
-    bool save(QString str);
-    bool load(QString str);
+    bool save(QTextStream &out);//保存参数
+    bool load(QTextStream &In);//加载参数
     bool copyto(toolsbase &toolb);
     void connectdb();
     void unconnect();
     void release();
+    void creatconfirm();
 public slots:
     //取消创建
     void refusecreate();

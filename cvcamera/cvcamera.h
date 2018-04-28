@@ -16,6 +16,10 @@
 #include "cvcamera_global.h"
 #include <iostream>
 #include <queue>
+#include <QFile>
+#include <QTextStream>
+#include <QDataStream>
+#define  SAVE_DATA          "CAM_SAVE.zv"
 using namespace cv;
 using namespace std;
 
@@ -47,6 +51,7 @@ public:
 
     VideoCapture *getCapture() const;
 
+    void loadData();
 private:
     int m_iCameraId=0;//相机的识别码 如“0”（暂定）
     VideoCapture *capture;//VideoCapture

@@ -5,6 +5,7 @@ QMutex outmutex;
 cvcamera::cvcamera()
 {
     capture=new VideoCapture();
+    loadData();
 }
 
 cvcamera::~cvcamera()
@@ -143,5 +144,24 @@ void cvcamera::setMax(int value)
 VideoCapture *cvcamera::getCapture() const
 {
     return capture;
+}
+void cvcamera::loadData()
+{
+    QFile ExpandData(SAVE_DATA);
+    if(ExpandData.open(QIODevice::ReadOnly))
+    {
+        /*文本输出流，用于保存数据*/
+        QTextStream In(&ExpandData);
+        In >> m_iCameraId;
+        In >>m_iWidth;
+        In >>m_iHight;
+        In >>m_iFps;
+        In >>m_iExposure;
+        In >>m_iBrightness;
+        In >>m_iContrast;
+        In >>m_iHue;
+        In >>m_iSaturation;
+        ExpandData.close();
+    }
 }
 

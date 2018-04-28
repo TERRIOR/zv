@@ -63,16 +63,20 @@ Filtertool::~Filtertool()
 void Filtertool::work()
 {
     //TODO:次数添加图像处理的运算
-    switch(m_ipasstype){
-        case lowpasstype:
-            lowblur();
-        break;
-        case bandpasstype:
-            bandpassfilter();
-        break;
-        default:
-        break;
+    imgparamin->pic()->copyTo(m_inpic);
+    if(!m_inpic.empty()){
+        switch(m_ipasstype){
+            case lowpasstype:
+                lowblur();
+            break;
+            case bandpasstype:
+                bandpassfilter();
+            break;
+            default:
+            break;
+        }
     }
+
 
 }
 
@@ -90,16 +94,59 @@ void Filtertool::showui()
     filterdia->show();
 }
 
-bool Filtertool::save(QString str)
+bool Filtertool::save(QTextStream &Out)
 {
     //TODO:此处保存参数
+    //QTextStream Out(Datafile);
+    Out<<m_ipasstype;
+    Out<<' ';
+    Out<<m_ihigh;
+    Out<<' ';
+    Out<<m_ilow;
+    Out<<' ';
+    Out<<m_istage;
+    Out<<' ';
+    Out<<m_isize;
+    Out<<' ';
+    Out<<imgparamin->getDbParam().getIId();
+    Out<<' ';
+    Out<<imgparamin->getDbParam().getIIndex();
+    Out<<' ';
+    Out<<imgparamin->getDbParam().getINode();
+    Out<<' ';
+    Out<<imgparamin->getDbParam().getIstype();
+    Out<<' ';
+    Out<<fromstdstring(imgparamin->getDbParam().getSparamName());
+    Out<<' ';
     return true;
 }
 
-bool Filtertool::load(QString str)
+bool Filtertool::load(QTextStream &In)
 {
     //TODO:此处读取数据
-    return false;
+    int id;
+    int index;
+    int node;
+    int type;
+    QString name;
+    In>>m_ipasstype;
+    In>>m_ihigh;
+    In>>m_ilow;
+    In>>m_istage;
+    In>>m_isize;
+    In>>id;
+    In>>index;
+    In>>node;
+    In>>type;
+    In>>name;
+    //pos=*In.pos();
+    imgparamin=dynamic_cast<ImageParam*>(
+                zvdata->getparamster(
+                    ParamStructure(name.toStdString(),index,node,type,id)));
+    imgparamin->pic()->copyTo(m_inpic);
+
+    cout<<"load"<<endl;
+    return true;
 }
 
 bool Filtertool::copyto(toolsbase &toolb)
@@ -133,6 +180,15 @@ void Filtertool::setPasstype(int value)
     m_ipasstype = value;
 }
 
+void Filtertool::creatconfirm()
+{
+    if(zvdata!=NULL){
+        //TODO:保存参数进数据库
+        zvdata->saveparam(&imgparamout);
+        zvdata->savetool(this);
+    }
+}
+
 void Filtertool::refusecreate()
 {
     if(zvdata!=NULL){
@@ -144,11 +200,7 @@ void Filtertool::refusecreate()
 
 void Filtertool::confirmcreat()
 {
-    if(zvdata!=NULL){
-        //TODO:保存参数进数据库
-        zvdata->saveparam(&imgparamout);
-        zvdata->savetool(this);
-    }
+    creatconfirm();
 }
 
 void Filtertool::receivework(int type,int high,int low,int stage,int size)
@@ -162,5 +214,5 @@ void Filtertool::receivestruct(ParamStructure structure)
 {
 
     imgparamin=dynamic_cast<ImageParam*>(zvdata->getparamster(structure));
-    m_inpic=*imgparamin->pic();
+    imgparamin->pic()->copyTo(m_inpic);
 }
