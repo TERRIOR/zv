@@ -1,27 +1,36 @@
 ﻿#include "filtertool.h"
 
 
-
-//Filtertool::Filtertool()
-//{
-
-//}
-
-Filtertool::Filtertool(QObject *parent)
+Filtertool::Filtertool()
 {
-
+    //do nothing
 }
 
 Filtertool::Filtertool(int node)
 {   
-    imgparamout.setDbParam("outimg",zvdata->getindex(node),node,imagetype,zvdata->getToolcount());
-    setToolparam(zvdata->getindex(node),node,imagetype,zvdata->getToolcount());
+    //设置创建 自动获取参数
+    //设置工具的参数
+    setToolparam(zvdata->getindex(node),node,filtertooltype,zvdata->getToolcount());
+    //更新数据库的计数
     zvdata->addindex(node);
     zvdata->addtoolcount();
-    //imgparamin.setPic(&m_inpic);
+    //TODO:把需要输出的成员与数据类的数据结构绑定 此处为滤波后的图像
+    imgparamout.setDbParam("outimg",zvdata->getindex(node),node,imagetype,zvdata->getToolcount());
     imgparamout.setPic(&m_outpic);
 }
 
+Filtertool::Filtertool(int index,int node,int id)
+{
+    //读取创建 按照保存文件设置参数
+    //设置工具的参数
+    setToolparam(index,node,id,filtertooltype);
+    //更新数据库的计数
+    zvdata->setindex(node,index);
+    zvdata->setToolcount(id);
+    //TODO:把需要输出的参数与数据库绑定
+    imgparamout.setDbParam("outimg",index,node,imagetype,id);
+    imgparamout.setPic(&m_outpic);
+}
 ToolsStructure Filtertool::getToolparam() const
 {
     return toolparam;
@@ -94,9 +103,42 @@ void Filtertool::showui()
     filterdia->show();
 }
 
+bool Filtertool::savetool(QTextStream &Out)
+{
+    Out<<toolparam.iIdOfStype();
+    Out<<' ';
+    Out<<toolparam.iIndex();
+    Out<<' ';
+    Out<<toolparam.iNode();
+    Out<<' ';
+    Out<<toolparam.iRunId();
+    Out<<' ';
+    return true;
+}
+
+bool Filtertool::loadtool(QTextStream &In)
+{
+    int id;
+    int index;
+    int node;
+
+    In>>index;
+    In>>node;
+    In>>id;
+    //读取创建 按照保存文件设置参数
+    //设置工具的参数
+    setToolparam(index,node,filtertooltype,id);
+    //更新数据库的计数
+    zvdata->setindex(node,index);
+    zvdata->setToolcount(id);
+    //TODO:把需要输出的参数与数据库绑定
+    imgparamout.setDbParam("outimg",index,node,imagetype,id);
+    imgparamout.setPic(&m_outpic);
+    return true;
+}
 bool Filtertool::save(QTextStream &Out)
 {
-    //TODO:此处保存参数
+    //TODO:此处保存运算参数
     //QTextStream Out(Datafile);
     Out<<m_ipasstype;
     Out<<' ';
@@ -123,7 +165,7 @@ bool Filtertool::save(QTextStream &Out)
 
 bool Filtertool::load(QTextStream &In)
 {
-    //TODO:此处读取数据
+    //TODO:此处读取运算数据
     int id;
     int index;
     int node;
@@ -139,7 +181,6 @@ bool Filtertool::load(QTextStream &In)
     In>>node;
     In>>type;
     In>>name;
-    //pos=*In.pos();
     imgparamin=dynamic_cast<ImageParam*>(
                 zvdata->getparamster(
                     ParamStructure(name.toStdString(),index,node,type,id)));
@@ -183,11 +224,13 @@ void Filtertool::setPasstype(int value)
 void Filtertool::creatconfirm()
 {
     if(zvdata!=NULL){
-        //TODO:保存参数进数据库
+        //TODO:保存输出参数进数据库 确认创建
+
         zvdata->saveparam(&imgparamout);
         zvdata->savetool(this);
     }
 }
+
 
 void Filtertool::refusecreate()
 {

@@ -24,20 +24,15 @@ class Filtertool :public QDialog,public toolsbase
 {
     Q_OBJECT
 public:
-    explicit Filtertool(QObject *parent = 0);
+    Filtertool();
     Filtertool(int node);
+    Filtertool(int index, int node, int id);
     //获取数据库形式参数
     ToolsStructure getToolparam() const;
     //设置数据库形式参数
     void setToolparam(int index,int node,int runid,int idofstype);
     //设置work时所需要的参数
     void settool(int type,int high,int low,int stage,int size);
-    //低通滤波
-    void lowblur();
-    //带通滤波
-    void bandpassfilter();
-    int getPasstype() const;
-    void setPasstype(int value);
 
     // toolsbase interface
     ~Filtertool();
@@ -50,6 +45,15 @@ public:
     void unconnect();
     void release();
     void creatconfirm();
+    bool savetool(QTextStream &out);
+    bool loadtool(QTextStream &in);
+
+    //低通滤波
+    void lowblur();
+    //带通滤波
+    void bandpassfilter();
+    int getPasstype() const;
+    void setPasstype(int value);
 public slots:
     //取消创建
     void refusecreate();
@@ -84,6 +88,9 @@ private:
     ImageParam *imgparamin;
     ImageParam imgparamout;
     ToolsStructure toolparam;//数据库参数
+
+
+
 };
 
 

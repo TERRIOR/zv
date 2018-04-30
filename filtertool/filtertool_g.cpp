@@ -13,3 +13,11 @@ void destroytool()
 {
 
 }
+
+toolsbase *CreatFilterTool()
+{
+    toolsbase* tool=new Filtertool();
+    //Filtertool *erw=new Filtertool();
+    cout<<"creat filter"<<endl;
+    return tool;
+}
