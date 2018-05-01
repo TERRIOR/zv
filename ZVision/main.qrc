@@ -10,5 +10,8 @@
         <file>main.ico</file>
         <file>image/widgets.qm</file>
         <file>main2.ico</file>
+        <file>image/expand-button.png</file>
+        <file>image/minus-sign-on-a-square-outline.png</file>
+        <file>image/close.png</file>
     </qresource>
 </RCC>
