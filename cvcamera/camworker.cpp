@@ -36,10 +36,10 @@ void CamWorker::doWork()
             qDebug()<<"Aborting worker process in Thread "<<thread()->currentThreadId();
             break;
         }
-        //qDebug()<<"running";
-        //outmutex.lock();
-        cvcam->addcamimg();
-        //outmutex.unlock();
+        cvcam->cap();//这是耗时操作，不能放在锁里！
+        outmutex.lock();
+        cvcam->addcamimg();//更新缓冲
+        outmutex.unlock();
         emit imgchange();
         Sleep(0);
     }

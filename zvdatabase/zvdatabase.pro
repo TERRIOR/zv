@@ -22,8 +22,8 @@ SOURCES += zvdatabase.cpp \
     zvbaseparam.cpp \
     resultparam.cpp \
     selectdialog.cpp \
-    toolsbase.cpp \
-    toolsstructure.cpp
+    toolsstructure.cpp \
+    toolsbase.cpp
 
 HEADERS += zvdatabase.h\
         zvdatabase_global.h \
@@ -38,8 +38,8 @@ HEADERS += zvdatabase.h\
     paramheader.h \
     resultparam.h \
     selectdialog.h \
-    toolsbase.h \
-    toolsstructure.h
+    toolsstructure.h \
+    toolsbase.h
 
 unix {
     target.path = /usr/lib

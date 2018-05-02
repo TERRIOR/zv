@@ -12,6 +12,7 @@
 #include "opencv2/core/core.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
+#include"cvgloble.h"
 #include <string>
 using namespace cv;
 using namespace std;
@@ -30,7 +31,7 @@ Mat ForierTransform(int M, int N,const Mat &img);
 //获得高斯高通滤波器
 Mat CreateGaussianHighPassFilter(Size size, double cutoffInPixels);
 //带通滤波
-void bandpass(const Mat &img,Mat &Outputmat, int D, int d, int n);
+void bandpass(Mat &img,Mat &Outputmat, int D, int d, int n);
 //显示fft的结果图
 void showfft(String str,const Mat &img);
 

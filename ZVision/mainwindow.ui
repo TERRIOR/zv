@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1077</width>
+    <width>1125</width>
     <height>627</height>
    </rect>
   </property>
@@ -26,45 +26,58 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="1" column="0" colspan="2">
      <layout class="QGridLayout" name="gridLayout_6">
-      <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton_7">
-        <property name="text">
-         <string>读取</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="QPushButton" name="pushButton_4">
-        <property name="text">
-         <string>单拍</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="3">
-       <widget class="QPushButton" name="pushButton_9">
+       <widget class="QPushButton" name="pushButton_signal">
         <property name="text">
          <string>信号源</string>
         </property>
        </widget>
       </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushButton_load">
+        <property name="text">
+         <string>读取</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QPushButton" name="pushButtoncamclose">
+        <property name="text">
+         <string>关闭相机</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="pushButton_save">
+        <property name="text">
+         <string>保存</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="2">
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="pushButton_setcam">
         <property name="text">
          <string>相机设置</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="5">
-       <widget class="QPushButton" name="pushButton_8">
+      <item row="0" column="4">
+       <widget class="QPushButton" name="pushButton_pic">
         <property name="text">
-         <string>运行</string>
+         <string>单拍</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pushButton_6">
+      <item row="0" column="6">
+       <widget class="QPushButton" name="pushButton_run">
         <property name="text">
-         <string>保存</string>
+         <string>开始运行</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
         </property>
        </widget>
       </item>
@@ -90,11 +103,11 @@
       <layout class="QGridLayout" name="gridLayout_2">
        <item row="1" column="0" colspan="2">
         <widget class="QLabel" name="lblOriginal">
-         <property name="minimumSize">
-          <size>
-           <width>640</width>
-           <height>480</height>
-          </size>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>1</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
          </property>
          <property name="autoFillBackground">
           <bool>true</bool>
@@ -117,7 +130,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>180</width>
+        <width>220</width>
         <height>16777215</height>
        </size>
       </property>
@@ -138,20 +151,20 @@
         <number>3</number>
        </property>
        <item row="1" column="0" colspan="2">
-        <widget class="QTableWidget" name="tableWidget">
+        <widget class="QTableWidget" name="tableWidgetfile">
          <property name="maximumSize">
           <size>
-           <width>180</width>
+           <width>220</width>
            <height>16777215</height>
           </size>
          </property>
         </widget>
        </item>
        <item row="2" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="pushButton_file">
          <property name="maximumSize">
           <size>
-           <width>180</width>
+           <width>220</width>
            <height>16777215</height>
           </size>
          </property>
@@ -173,7 +186,7 @@
       </property>
       <property name="maximumSize">
        <size>
-        <width>180</width>
+        <width>220</width>
         <height>16777215</height>
        </size>
       </property>
@@ -197,20 +210,20 @@
         <number>3</number>
        </property>
        <item row="0" column="0">
-        <widget class="QComboBox" name="comboBox"/>
+        <widget class="QComboBox" name="comboBoxnode"/>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton_10">
+        <widget class="QPushButton" name="pushButton_node">
          <property name="text">
-          <string>配置流程</string>
+          <string> 添加流程</string>
          </property>
         </widget>
        </item>
        <item row="1" column="0" colspan="2">
-        <widget class="QTableWidget" name="tableWidget1">
+        <widget class="QTableWidget" name="tableWidgettool">
          <property name="maximumSize">
           <size>
-           <width>180</width>
+           <width>220</width>
            <height>16777215</height>
           </size>
          </property>
@@ -219,26 +232,14 @@
        <item row="2" column="0" colspan="2">
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="pushButton_3">
-           <property name="maximumSize">
-            <size>
-             <width>80</width>
-             <height>16777215</height>
-            </size>
-           </property>
+          <widget class="QPushButton" name="pushButton_addnode">
            <property name="text">
             <string>添加</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
-           <property name="maximumSize">
-            <size>
-             <width>80</width>
-             <height>16777215</height>
-            </size>
-           </property>
+          <widget class="QPushButton" name="pushButtondelnode">
            <property name="text">
             <string>删除</string>
            </property>
@@ -279,7 +280,19 @@
         </widget>
        </item>
        <item>
-        <widget class="QComboBox" name="comboBox_2"/>
+        <widget class="QComboBox" name="comboBox_index"/>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Set Show</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="label_2">

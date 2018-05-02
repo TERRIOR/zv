@@ -31,9 +31,9 @@ Filtertool::Filtertool(int index,int node,int id)
     imgparamout.setDbParam("outimg",index,node,imagetype,id);
     imgparamout.setPic(&m_outpic);
 }
-ToolsStructure Filtertool::getToolparam() const
+void Filtertool::getToolparam(ToolsStructure& toolstruct)
 {
-    return toolparam;
+    toolstruct=toolparam;
 }
 
 void Filtertool::setToolparam(int index, int node, int runid, int idofstype)
@@ -50,16 +50,19 @@ void Filtertool::settool(int type, int high, int low, int stage, int size)
     m_isize=size;
 }
 
-void Filtertool::lowblur()
+bool Filtertool::lowblur()
 {
     blur(m_inpic,m_outpic,Size(m_isize,m_isize));
+    return true;
 }
 
-void Filtertool::bandpassfilter()
+bool Filtertool::bandpassfilter()
 {
     Mat gray;
     cvtColor(m_inpic,gray,CV_BGR2GRAY);
+
     bandpass(gray,m_outpic,m_ihigh,m_ilow,m_istage);
+    return true;
 }
 
 Filtertool::~Filtertool()
@@ -69,23 +72,24 @@ Filtertool::~Filtertool()
 }
 
 
-void Filtertool::work()
+bool Filtertool::work()
 {
     //TODO:次数添加图像处理的运算
     imgparamin->pic()->copyTo(m_inpic);
     if(!m_inpic.empty()){
         switch(m_ipasstype){
             case lowpasstype:
-                lowblur();
+                worksuccess=lowblur();
             break;
             case bandpasstype:
-                bandpassfilter();
+                worksuccess=bandpassfilter();
             break;
             default:
             break;
         }
+        return worksuccess;
     }
-
+    return false;
 
 }
 
@@ -127,7 +131,7 @@ bool Filtertool::loadtool(QTextStream &In)
     In>>id;
     //读取创建 按照保存文件设置参数
     //设置工具的参数
-    setToolparam(index,node,filtertooltype,id);
+    setToolparam(index,node,id,filtertooltype);
     //更新数据库的计数
     zvdata->setindex(node,index);
     zvdata->setToolcount(id);
@@ -258,4 +262,9 @@ void Filtertool::receivestruct(ParamStructure structure)
 
     imgparamin=dynamic_cast<ImageParam*>(zvdata->getparamster(structure));
     imgparamin->pic()->copyTo(m_inpic);
+}
+
+bool Filtertool::getWorksuccess() const
+{
+    return worksuccess;
 }

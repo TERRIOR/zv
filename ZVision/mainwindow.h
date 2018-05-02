@@ -5,8 +5,19 @@
 #include <QDesktopWidget>
 #include <QMouseEvent>
 #include <QAbstractButton>
-namespace Ui {
-class MainWindow;
+#include "zvdatabase_g.h"
+#include "cvcamera_g.h"
+#include "imageparam.h"
+#include "zvbaseparam.h"
+#include "filtertool_g.h"
+#include <iostream>
+#include "cvgloble.h"
+#include "dialogsignal.h"
+#include "toolsstructure.h"
+#include "controlimgthread.h"
+using namespace std;
+namespace Ui{
+    class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -16,8 +27,13 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    void closecam();
+    void opencam();
+    void refreshmat();
     void setIcon(QAbstractButton *btn, QChar c, quint32 size = 9);
+    void loadtool(QTextStream &in);
+
+    void addrow(ToolsStructure structure);
 private slots:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
@@ -28,15 +44,50 @@ private slots:
 
     void on_pushButton_close_clicked();
 
+    void on_pushButton_setcam_clicked();
+    void on_comboBoxnode_currentIndexChanged(int index);
+    void on_pushButtoncamclose_clicked();
+
+    void on_pushButton_pic_clicked();
+
+    void on_pushButton_load_clicked();
+
+    void on_pushButton_save_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_signal_clicked();
+
+    void on_pushButton_node_clicked();
+
+    void on_pushButton_run_toggled(bool checked);
+
+public slots:
+    void UpdateGUI();
+    void receiveparam(ParamStructure Structure);
+    void signalset(int where,int how);
 private:
     void initform();
     bool m_move;
+    int m_inodecount=1;
+    int m_inodenow;
+    int m_iwhere=0;
+    int m_ihow=0;
     QPoint m_startPoint;
     QPoint m_windowPoint;
-
     bool max;
     QRect location;
     Ui::MainWindow *ui;
+    Mat imgcam;
+    Mat* imgshow=NULL;
+    ImageParam *imgcamp;
+    //ImageParam *imgparam2;
+    Zvdatabase *m_zvdata;
+    controlthread* conthread;
+    controlimgthread* imgthread=NULL;
+    QTimer *tmrTimer;
+    vector<toolsbase*> vectool;
+    int maxpic=6;
 };
 
 #endif // MAINWINDOW_H

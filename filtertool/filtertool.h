@@ -28,7 +28,7 @@ public:
     Filtertool(int node);
     Filtertool(int index, int node, int id);
     //获取数据库形式参数
-    ToolsStructure getToolparam() const;
+    void getToolparam(ToolsStructure& toolstruct);
     //设置数据库形式参数
     void setToolparam(int index,int node,int runid,int idofstype);
     //设置work时所需要的参数
@@ -36,7 +36,7 @@ public:
 
     // toolsbase interface
     ~Filtertool();
-    void work();
+    bool work();
     void showui();
     bool save(QTextStream &out);//保存参数
     bool load(QTextStream &In);//加载参数
@@ -49,11 +49,13 @@ public:
     bool loadtool(QTextStream &in);
 
     //低通滤波
-    void lowblur();
+    bool lowblur();
     //带通滤波
-    void bandpassfilter();
+    bool bandpassfilter();
     int getPasstype() const;
     void setPasstype(int value);
+    bool getWorksuccess() const;
+
 public slots:
     //取消创建
     void refusecreate();
@@ -69,6 +71,8 @@ signals:
 
 private:
     bool showed=false;
+    bool worksuccess=false;
+
     Mat m_inpic;
     Mat m_outpic;
     /**

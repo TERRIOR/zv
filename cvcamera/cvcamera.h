@@ -48,10 +48,11 @@ public:
 
     int getMax() const;
     void setMax(int value);
-
+    bool opencamed();
     VideoCapture *getCapture() const;
 
     void loadData();
+    void cap();
 private:
     int m_iCameraId=0;//相机的识别码 如“0”（暂定）
     VideoCapture *capture;//VideoCapture
@@ -66,9 +67,10 @@ private:
     int m_iHue=-1;//图像色度
     int m_iSaturation=-1;//图像饱和度
     Mat lastestmat;
+    Mat m_temp;
     int max;
 };
 extern "C" CVCAMERASHARED_EXPORT cvcamera *cvcam;
-extern QMutex outmutex;
+extern "C" CVCAMERASHARED_EXPORT QMutex outmutex;
 
 #endif // OPENCVCAMERA_H

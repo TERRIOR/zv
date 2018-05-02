@@ -1,7 +1,10 @@
 ﻿#ifndef TOOLSSTRUCTURE_H
 #define TOOLSSTRUCTURE_H
-
+#include "String"
+#include <iostream>
+using namespace std;
 //工具类所需要的基本数据结构
+static string strzu[20]={"Filtertool","Binarytool","Matchtool","Ruletool"};
 class ToolsStructure
 {
 public:

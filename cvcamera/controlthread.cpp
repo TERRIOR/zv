@@ -26,6 +26,10 @@ controlthread::controlthread(bool uicall)
 
 controlthread::~controlthread()
 {
+    delete thread;
+    delete worker;
+    thread=NULL;
+    worker=NULL;
     cout<<"release control"<<endl;
 }
 
@@ -58,9 +62,6 @@ void controlthread::startthread()
 void controlthread::release()
 {
     stopthread();
-    delete thread;
-    delete worker;
     delete this;
-    thread=NULL;
-    worker=NULL;
+
 }

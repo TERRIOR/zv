@@ -58,7 +58,7 @@ public:
 private:
     map<ParamStructure,ZvBaseParam*> *zvmap;
     vector<toolsbase*> toolvect;
-    int toolcount=1;
+    int toolcount=0;
     int indexcount[10];//最多是个流程，每个索引下的数指该node下拥有的index数
 
 };

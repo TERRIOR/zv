@@ -20,8 +20,8 @@ SOURCES += filtertool.cpp \
     zvbaseparam.cpp \
     filterdialog.cpp \
     filtertool_g.cpp \
-    toolsbase.cpp \
-    toolsstructure.cpp
+    toolsstructure.cpp \
+    toolsbase.cpp
 
 HEADERS += filtertool.h\
         filtertool_global.h \
@@ -33,8 +33,8 @@ HEADERS += filtertool.h\
     zvbaseparam.h \
     filterdialog.h \
     filtertool_g.h \
-    toolsbase.h \
     toolsstructure.h \
+    toolsbase.h
 
 unix {
     target.path = /usr/lib

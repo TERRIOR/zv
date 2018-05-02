@@ -119,9 +119,9 @@ void change(Mat &mag){
     q2.copyTo(q1);
     tmp.copyTo(q2);
 }
-void bandpass(const Mat &img,Mat &inverseTransform, int D, int d, int n)
+void bandpass(Mat &img,Mat &inverse, int D, int d, int n)
 {
-
+    scalemat(img,0.5);
     Mat complexImg=ForierTransform(img);
     Mat ghpf(Size(complexImg.cols, complexImg.rows),5);
     bandpass_filter(ghpf,D,d,n);
@@ -131,10 +131,13 @@ void bandpass(const Mat &img,Mat &inverseTransform, int D, int d, int n)
     change(planes[0]);
     change(planes[1]);
     merge(planes, 2, ghpf);
+    Mat inverseTransform;
     mulSpectrums(complexImg,ghpf,inverseTransform,DFT_COMPLEX_OUTPUT);
     dft(inverseTransform, inverseTransform, cv::DFT_INVERSE|cv::DFT_REAL_OUTPUT);
     normalize(inverseTransform, inverseTransform, 0, 255, CV_MINMAX);
-    inverseTransform.convertTo(inverseTransform,0);
+    scalemat(inverseTransform,2);
+    inverseTransform.convertTo(inverse,0);
+
 }
 
 void showfft(String str,const Mat &img)

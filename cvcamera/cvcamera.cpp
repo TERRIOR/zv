@@ -42,16 +42,18 @@ int cvcamera::queuesize()
 void cvcamera::addcamimg()
 {
 
-    if(capture->isOpened()){
-        *capture >> lastestmat;
-        if(camimgque.size()>max){
-            camimgque.pop();
-        }
-        camimgque.push(lastestmat);
+    m_temp.copyTo(lastestmat);
+    if(camimgque.size()>max){
+        camimgque.pop();
     }
+    camimgque.push(lastestmat);
+
 
 }
-
+void cvcamera::cap(){
+    if(capture->isOpened())
+        *capture >> m_temp;
+}
 bool cvcamera::opencamera()
 {
 
@@ -139,6 +141,11 @@ int cvcamera::getMax() const
 void cvcamera::setMax(int value)
 {
     max = value;
+}
+
+bool cvcamera::opencamed()
+{
+    return capture->isOpened();
 }
 
 VideoCapture *cvcamera::getCapture() const
