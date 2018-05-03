@@ -164,7 +164,9 @@ void MainWindow::on_comboBoxnode_currentIndexChanged(int index)
     m_inodenow=index+1;
     cout<<m_inodenow<<endl;
     //TODO:更新工具列表的显示
-    //ui->tableWidgettool->clear();
+    refreshtoollist();
+}
+void MainWindow::refreshtoollist(){
     ui->tableWidgettool->clearContents();
     ui->tableWidgettool->setRowCount(0);
     int size=m_zvdata->getToolvectsize();
@@ -205,8 +207,6 @@ void MainWindow::refreshmat()
 }
 void MainWindow::closecam(){
     if(cvcam->opencamed()){
-        imgthread->stopthread();
-        imgthread->release();
         conthread->stopthread();
         conthread->release();
         cvcam->closecamera();
@@ -312,6 +312,26 @@ void MainWindow::signalset(int where, int how)
     m_ihow=how;
 }
 
+void MainWindow::receivetype(int i)
+{
+    toolsbase* tool;
+    switch (i) {
+    case 0:
+        tool=creatfiltertool(m_inodenow);
+        connect(dynamic_cast<Filtertool*>(tool),SIGNAL(sendconfirm()),this,SLOT(updatetoollist()));
+        break;
+    case 1:
+        //TODO:creat...tool
+        //such as tool=CreatFilterTool();
+
+        break;
+
+    default:
+        break;
+    }
+    tool->showui();
+}
+
 void MainWindow::on_pushButton_signal_clicked()
 {
     QDialog* diasignal=new Dialogsignal();
@@ -376,4 +396,33 @@ void MainWindow::on_pushButton_run_toggled(bool checked)
     }
 
 
+}
+
+void MainWindow::on_pushButton_addnode_clicked()
+{
+    QDialog* diaadd=new Diaselecttool();
+    connect(diaadd,SIGNAL(sendcol(int)),this,SLOT(receivetype( int)));
+    diaadd->show();
+    //toolsbase* tool=creatfiltertool(m_inodenow);
+    //tool->showui();
+}
+
+void MainWindow::updatetoollist()
+{
+    refreshtoollist();
+}
+
+
+void MainWindow::on_tableWidgettool_cellDoubleClicked(int row, int column)
+{
+    int id;
+    int node;
+    int index;
+    string name;
+    id=ui->tableWidgettool->item(row,2)->text().toInt();
+    node=m_inodenow;
+    index=ui->tableWidgettool->item(row,1)->text().toInt();
+    name=ui->tableWidgettool->item(row,0)->text().toStdString();
+    toolsbase* tool= m_zvdata->findtool(id);
+    tool->showui();
 }

@@ -10,10 +10,10 @@ Filtertool::Filtertool(int node)
 {   
     //设置创建 自动获取参数
     //设置工具的参数
-    setToolparam(zvdata->getindex(node),node,filtertooltype,zvdata->getToolcount());
     //更新数据库的计数
     zvdata->addindex(node);
     zvdata->addtoolcount();
+    setToolparam(zvdata->getindex(node),node,zvdata->getToolcount(),filtertooltype);
     //TODO:把需要输出的成员与数据类的数据结构绑定 此处为滤波后的图像
     imgparamout.setDbParam("outimg",zvdata->getindex(node),node,imagetype,zvdata->getToolcount());
     imgparamout.setPic(&m_outpic);
@@ -232,6 +232,7 @@ void Filtertool::creatconfirm()
 
         zvdata->saveparam(&imgparamout);
         zvdata->savetool(this);
+        emit sendconfirm();
     }
 }
 

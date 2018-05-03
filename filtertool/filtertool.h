@@ -68,7 +68,7 @@ public slots:
 signals:
     //发送图像给dialog
     void sendmat(Mat m);
-
+    void sendconfirm();
 private:
     bool showed=false;
     bool worksuccess=false;

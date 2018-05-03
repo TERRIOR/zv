@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     dialogsignal.cpp \
     toolsstructure.cpp \
     imageworker.cpp \
-    controlimgthread.cpp
+    controlimgthread.cpp \
+    diaselecttool.cpp
 
 HEADERS  += mainwindow.h \
     imageparam.h \
@@ -33,10 +34,12 @@ HEADERS  += mainwindow.h \
     dialogsignal.h \
     toolsstructure.h \
     imageworker.h \
-    controlimgthread.h
+    controlimgthread.h \
+    diaselecttool.h
 
 FORMS    += mainwindow.ui \
-    dialogsignal.ui
+    dialogsignal.ui \
+    diaselecttool.ui
 
 RESOURCES += \
     main.qrc \

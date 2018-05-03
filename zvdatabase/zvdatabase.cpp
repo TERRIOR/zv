@@ -67,6 +67,19 @@ void Zvdatabase::setindex(int node, int index)
     indexcount[node]=index;
 }
 
+toolsbase *Zvdatabase::findtool(int id)
+{
+    vector<toolsbase*>::iterator it;
+    ToolsStructure toolst;
+    for(it=toolvect.begin();it!=toolvect.end();it++){
+        (*it)->getToolparam(toolst);
+        if(toolst.iRunId()==id){
+            return *it;
+        }
+    }
+    return NULL;
+}
+
 void Zvdatabase::refreshparam(ZvBaseParam *param)
 {
     zvmap->at(param->getDbParam())=param;

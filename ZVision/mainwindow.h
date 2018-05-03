@@ -15,6 +15,7 @@
 #include "dialogsignal.h"
 #include "toolsstructure.h"
 #include "controlimgthread.h"
+#include "diaselecttool.h"
 using namespace std;
 namespace Ui{
     class MainWindow;
@@ -34,6 +35,7 @@ public:
     void loadtool(QTextStream &in);
 
     void addrow(ToolsStructure structure);
+    void refreshtoollist();
 private slots:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
@@ -62,10 +64,16 @@ private slots:
 
     void on_pushButton_run_toggled(bool checked);
 
+    void on_pushButton_addnode_clicked();
+
+    void updatetoollist();
+    void on_tableWidgettool_cellDoubleClicked(int row, int column);
+
 public slots:
     void UpdateGUI();
     void receiveparam(ParamStructure Structure);
     void signalset(int where,int how);
+    void receivetype(int i);
 private:
     void initform();
     bool m_move;

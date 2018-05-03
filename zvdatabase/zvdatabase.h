@@ -55,6 +55,7 @@ public:
     void addindex(int node);
     void minusindex(int node);
     void setindex(int node,int index);
+    toolsbase* findtool(int id);
 private:
     map<ParamStructure,ZvBaseParam*> *zvmap;
     vector<toolsbase*> toolvect;
